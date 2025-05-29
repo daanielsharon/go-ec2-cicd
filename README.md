@@ -41,7 +41,7 @@ To allow your deployment user to restart the service without a password prompt:
 
 1. Edit the sudoers file safely using visudo:
    ```bash
-   sudo visudo -f /etc/sudoers.d/go-ec2-cicd
+   sudo EDITOR=vim visudo
    ```
 
 2. First, find the path to systemctl on your system:
