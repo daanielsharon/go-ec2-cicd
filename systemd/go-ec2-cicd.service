@@ -1,0 +1,13 @@
+[Unit]
+Description=Go EC2 CI/CD Service
+After=network.target
+
+[Service]
+User=ubuntu
+WorkingDirectory=/home/ubuntu/go-ec2-cicd
+ExecStart=/home/ubuntu/go-ec2-cicd
+Restart=always
+Environment=PORT=8080
+
+[Install]
+WantedBy=multi-user.target

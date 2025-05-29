@@ -1,0 +1,44 @@
+name: "Deploy to EC2"
+on: 
+    push: 
+        branches:
+            - main
+    pull_request:
+        branches:
+            - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.24.1'
+    
+    - name: Run unit tests
+      run: go test -v ./...
+    
+    - name: Build
+      run: go build -v ./...
+      
+  deploy:
+    needs: build
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Deploy via SSH
+      uses: appleboy/ssh-action@v0.1.10
+      with:
+        host: ${{ secrets.VM_HOST }}
+        username: ${{ secrets.VM_USERNAME }}
+        key: ${{ secrets.VM_KEY }}
+        script: |
+          cd /home/ubuntu/go-ec2-cicd
+          git pull origin $(git branch --show-current)
+          go build -o go-ec2-cicd main.go
+    
