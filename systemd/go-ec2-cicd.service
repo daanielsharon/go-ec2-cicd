@@ -5,8 +5,9 @@ After=network.target
 [Service]
 User=ubuntu
 WorkingDirectory=/home/ubuntu/go-ec2-cicd
-ExecStart=/home/ubuntu/go-ec2-cicd
+ExecStart=/home/ubuntu/go-ec2-cicd/bin/go-ec2-cicd
 Restart=always
+RestartSec=5
 Environment=PORT=8080
 
 [Install]

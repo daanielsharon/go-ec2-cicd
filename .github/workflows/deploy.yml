@@ -40,5 +40,6 @@ jobs:
         script: |
           cd /home/ubuntu/go-ec2-cicd
           git pull origin $(git branch --show-current)
-          go build -o go-ec2-cicd main.go
+          go build -o bin/go-ec2-cicd main.go
+          sudo systemctl restart go-ec2-cicd
     
