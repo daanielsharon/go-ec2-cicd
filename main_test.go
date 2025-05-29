@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -21,7 +22,7 @@ func TestHelloHandler(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := "Hello, World!"
+	expected := fmt.Sprintf("Hello, %s! \n", GreetingName)
 	if rr.Body.String() != expected {
 		t.Errorf("handler returned unexpected body: got %v want %v",
 			rr.Body.String(), expected)

@@ -6,8 +6,10 @@ import (
 	"net/http"
 )
 
+var GreetingName = "Dunia"
+
 func helloHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello, Dunia! \n")
+	fmt.Fprintf(w, "Hello, %s! \n", GreetingName)
 }
 
 func main() {
