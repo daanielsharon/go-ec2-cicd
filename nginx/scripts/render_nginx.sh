@@ -12,7 +12,7 @@ TEMPLATE_FILE="$SCRIPT_DIR/../template.conf"
 
 export SERVER_NAME
 
-envsubst < "$TEMPLATE_FILE" | sudo tee /etc/nginx/sites-available/$SERVER_NAME > /dev/null
+envsubst '$SERVER_NAME' < "$TEMPLATE_FILE" | sudo tee /etc/nginx/sites-available/$SERVER_NAME > /dev/null
 sudo ln -sf /etc/nginx/sites-available/$SERVER_NAME /etc/nginx/sites-enabled/
 sudo nginx -t && sudo systemctl reload nginx
 
