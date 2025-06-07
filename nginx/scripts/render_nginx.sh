@@ -7,9 +7,12 @@ if [ -z "$SERVER_NAME" ]; then
   exit 1
 fi
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+TEMPLATE_FILE="$SCRIPT_DIR/../template.conf"
+
 export SERVER_NAME
 
-envsubst < template.conf | sudo tee /etc/nginx/sites-available/api.thisisweb.id > /dev/null
+envsubst < "$TEMPLATE_FILE" | sudo tee /etc/nginx/sites-available/$SERVER_NAME > /dev/null
 sudo ln -sf /etc/nginx/sites-available/$SERVER_NAME /etc/nginx/sites-enabled/
 sudo nginx -t && sudo systemctl reload nginx
 
